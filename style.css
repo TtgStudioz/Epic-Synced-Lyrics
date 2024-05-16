@@ -1,0 +1,120 @@
+/* html {
+  height: 100%;
+  width: 100%;
+} */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #27374D;
+  color: #DDE6ED;
+}
+.individualLyric {
+  cursor: pointer; 
+}
+
+#lyrics {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+#lyrics-container {
+  height: 550px; /* Fixed height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #d6d6d6;
+  padding: 20px;
+  font-size: 25px;
+  width: 30%;
+  float:right;
+  align-self: center;
+  margin: 50px;
+  border-radius: 10px;
+  margin-right: 5%;
+  font-weight: bold;
+  color: #7d7d7d;
+}
+#ultra-cont {
+  float: left;
+  margin: 0;
+  width: 50%;
+}
+.highlight {
+  color: blue; /* Style for the currently highlighted lyric */
+}
+#container {
+  display: flex;
+  justify-content: center;
+  margin: 60px;
+  width: auto;
+}
+
+/* Styles for screens less than 900 pixels wide */
+@media (max-width : 900px) {
+  #ultra-cont {
+    display: flex; /* Change display to flex */
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #lyrics-container {
+    width: 80%;
+    /* margin: 20px auto; /* Move the lyrics container to the bottom */ 
+    
+  }
+}
+#player {
+  border-radius: 10px;
+}
+input {
+  background-color: #9DB2BF;
+  border-radius: 5px;
+  margin: 10px;
+  height: 40px;
+  width: 25%;
+  font-size: 24px;
+  border: none;
+  padding: 5px;
+  /* border-bottom: 50px; */
+}
+
+input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: #26292b;
+  opacity: 1; /* Firefox */
+}
+
+
+/* CSS */
+.button-31 {
+  background-color: #526D82;
+  border-radius: 5px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  max-width: none;
+  min-height: 44px;
+  min-width: 10px;
+  outline: none;
+  overflow: hidden;
+  padding: 13px ;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  height: 100%;
+  align-self: center;
+  margin-left: 7px;
+  width: auto;
+}
+
+.button-31:hover {
+  opacity: .75;
+}
