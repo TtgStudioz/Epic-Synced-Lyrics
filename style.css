@@ -5,11 +5,12 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #27374D;
+  background-color: #162130;
   color: #DDE6ED;
 }
+
 .individualLyric {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 #lyrics {
@@ -19,28 +20,34 @@ body {
 }
 
 #lyrics-container {
-  height: 550px; /* Fixed height */
-  overflow-y: auto; /* Enable vertical scrolling */
+  height: 550px;
+  /* Fixed height */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
   border: 1px solid #d6d6d6;
   padding: 20px;
   font-size: 25px;
-  width: 30%;
-  float:right;
+  width: 27%;
+  float: right;
   align-self: center;
   margin: 50px;
   border-radius: 10px;
-  margin-right: 5%;
+  margin-right: 7%;
   font-weight: bold;
   color: #7d7d7d;
 }
+
 #ultra-cont {
   float: left;
   margin: 0;
   width: 50%;
 }
+
 .highlight {
-  color: blue; /* Style for the currently highlighted lyric */
+  color: blue;
+  /* Style for the currently highlighted lyric */
 }
+
 #container {
   display: flex;
   justify-content: center;
@@ -48,30 +55,46 @@ body {
   width: auto;
 }
 
+#bruh {
+  position: relative;
+}
+
+#bruh>p {
+  text-align: center;
+}
+
+#bruh>p>a {
+  color: inherit;
+}
+
 /* Styles for screens less than 900 pixels wide */
 @media (max-width : 900px) {
   #ultra-cont {
-    display: flex; /* Change display to flex */
+    display: flex;
+    /* Change display to flex */
     flex-direction: column;
     width: 100%;
   }
 
   #lyrics-container {
     width: 80%;
-    /* margin: 20px auto; /* Move the lyrics container to the bottom */ 
-    
+    /* margin: 20px auto; /* Move the lyrics container to the bottom */
+
   }
 }
+
+
 #player {
   border-radius: 10px;
 }
+
 input {
   background-color: #9DB2BF;
   border-radius: 5px;
   margin: 10px;
   height: 40px;
   width: 25%;
-  font-size: 24px;
+  font-size: 20px;
   border: none;
   padding: 5px;
   /* border-bottom: 50px; */
@@ -83,7 +106,9 @@ input:focus {
 
 ::placeholder {
   color: #26292b;
-  opacity: 1; /* Firefox */
+  opacity: 1;
+  font-size: 18px;
+  /* Firefox */
 }
 
 
@@ -105,7 +130,7 @@ input:focus {
   min-width: 10px;
   outline: none;
   overflow: hidden;
-  padding: 13px ;
+  padding: 13px;
   position: relative;
   text-align: center;
   text-transform: none;
@@ -117,4 +142,51 @@ input:focus {
 
 .button-31:hover {
   opacity: .75;
+}
+
+
+.popup {
+  transition: .5s;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  backdrop-filter: blur(10px);
+  background-color: rgb(0 0 0 / 49%);
+  display: none;
+}
+
+.popup-content {
+  background-color: #466b8859;
+  margin: 10% auto;
+  padding: 20px;
+  border: 3px solid #888888;
+  width: 30%;
+  font-weight: bolder;
+  display: block;
+  border-radius: 10px;
+}
+
+.popup-content button {
+  display: block;
+  margin: 0 auto;
+  background-color: #FFF0;
+  border: none;
+  color: #fff;
+  margin-left: 95%;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: -20px;
+  font-size: 17px;
+}
+
+.show {
+  display: block;
+}
+
+a:hover {
+  cursor: pointer;
 }
