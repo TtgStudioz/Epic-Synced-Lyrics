@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Epic Synced Lyrics</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="lyrics-container">
+  </div>
+
+  <div id="ultra-cont">
+    <div id="container">
+      <div id="player"></div>
+    </div>
+    <div id="bruh">
+      <div id="container">
+        <input id="artistName" placeholder="Artist Name"></input>
+        <input id="songName" placeholder="Song Name"></input>
+        <!-- <input id="albumName" placeholder="Album Name (Optional)"></input> -->
+        <button id="searchButton" class="button-31" onclick="searchVideo()">Search</button>
+
+      </div>
+      <p>Click <a id="popup-button" , style="text-decoration: underline;">here</a> to learn how to properly search for a
+        song and to see credits.
+      </p>
+    </div>
+    <!-- <div id="lyrics"></div> -->
+  </div>
+  <div id="myPopup" class="popup">
+    <div class="popup-content">
+      <button id="close-popup">X</button>
+      <h2 style="margin-bottom: -5px;">How to use</h2>
+      <p>Make sure to enter both song name and artist. If this does not work, double check your spelling and your provided song and artist name. If it still does not show lyrics, the APIs might not have the song you are looking for.</p>
+      <p> Keep in mind that this website is far from perfect; some lyrics that show may not be the ones from the song or its lyrics may not be perfectly synced to the song. I am still working on that.</p>
+      <h2 style="margin-bottom: -5px;">Credits</h2>
+      <p>Shout out to Gani Omyrzak for creating a proxy server for the backup API I use in this project.</p>
+      <p>Disclaimer: All song lyrics displayed on this site are the property of their
+        respective authors, artists, and labels. The lyrics are provided for educational purposes and personal use only.
+        This website uses different API sources for lyrics provided by <a style="color: inherit"href="https://lrclib.net/">lrclib.net</a> and <a style="color: inherit" href="https://api.textyl.co/">Textyl API</a>. This website also uses the <a style="color: inherit" href="https://developers.google.com/youtube/iframe_api_reference">YouTube Iframe API</a> to provide the music. </p> <p style="font-weight: normal;">© 2024 Ttg Studioz. All rights reserved.
+</p>
+    </div>
+  </div>
+  <script src="script.js">
+
+
+  </script>
+</body>
+
+</html>
