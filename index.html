@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Epic Synced Lyrics</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="ultra-contT">
+    <div id="containerT">
+      <div class="searchContainer">
+        <input type="text" id="searchInput" class="searchInput" placeholder="Search" autocomplete="off">
+        <div id="resultsContainer" class="resultsContainer"></div>
+      </div>
+      <h3> - or - </h3>
+      <input id="songAndArtist" placeholder="Quick search" autocomplete="off"></input>
+      <button id="searchButton" class="button-31">Search</button>
+
+    </div>
+  </div>
+  <a class="float" id="popup-button" , style="text-decoration: none;"></a>
+
+  <div id="lyrics-container">
+  </div>
+
+  <div id="ultra-cont">
+    <div id="container">
+      <div id="player"></div>
+    </div>
+
+    <button style="margin-bottom: 20px; margin-left:0px; background-color: #3d5466;" id="options-button"
+      class="button-31">Explore song's versions</button>
+    
+    <button class="accordion">Song Info <p style="float: right; margin: 0;"></p></button>
+    <div class="panel">
+      <div style="border: none; cursor: default; padding: 0;" class="songSearch">
+        <img id="infoImage" style="width: 150px;" src="" class="imageSearch">
+        <div style="" class="textContainer">
+          <div class="containerInfo">
+            <div class="item">
+              <p class="label">Album</p>
+              <p id="infoAlbum" style="font-size: 18px; color: #FFFF;"></p>
+            </div>
+            <div class="item">
+              <p class="label">Producers</p>
+              <p id="infoProducers" style="font-size: 18px; color: #FFFF;"></p>
+            </div>
+            <div class="item">
+              <p class="label">Release date</p>
+              <p id="infoRelease" style="font-size: 18px; color: #FFFF;"></p>
+            </div>
+            <div class="item">
+              <p class="label">Length</p>
+              <p id="infoLength" style="font-size: 18px; color: #FFFF;"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="bruh">
+      <div id="container">
+        <input id="artistName" placeholder="Artist Name"></input>
+        <input id="songName" placeholder="Song Name"></input>
+        <!-- <input id="albumName" placeholder="Album Name (Optional)"></input> -->
+        <button id="searchButton" class="button-31" onclick="searchVideo()">Search</button>
+
+      </div>
+
+    </div>
+    <!-- <div id="lyrics"></div> -->
+  </div>
+  <div id="options-popup" class="popup">
+    <div class="popup-content">
+      <button style="margin-bottom: 10px" id="close-popup-two">X</button>
+      <div style="height: 50vh; overflow-x: hidden;" id="optionsContent"></div>
+    </div>
+  </div>
+
+  <div id="myPopup" class="popup">
+    <div class="popup-content">
+      <button id="close-popup">X</button>
+      <h2 style="margin-bottom: -5px;">How to use</h2>
+      <p>To use "Quick Search", you would have to type the artist name first, followed by a comma, and then the song's
+        name. Ex: "The Weeknd, Blinding Lights".</p>
+      <p> Keep in mind that this website is far from perfect; some lyrics that show may not be the ones from the song or
+        its lyrics may not be perfectly synced to the song. I am still working on that.</p>
+      <h2 style="margin-bottom: -5px;">Credits</h2>
+      <p>Shout out to Gani Omyrzak for creating a proxy server for the backup API I use in this project.</p>
+      <p>Disclaimer: All song lyrics displayed on this site are the property of their
+        respective authors, artists, and labels. The lyrics are provided for educational purposes and personal use only.
+        This website uses different API sources for lyrics provided by <a style="color: inherit"
+          href="https://lrclib.net/">lrclib.net</a> and <a style="color: inherit" href="https://api.textyl.co/">Textyl
+          API</a>. This website also uses the <a style="color: inherit"
+          href="https://developers.google.com/youtube/iframe_api_reference">YouTube Iframe API</a> to provide the music.
+      </p>
+      <p style="font-weight: normal;">© 2024 Ttg Studioz. All rights reserved.
+      </p>
+    </div>
+  </div>
+  <script src="script.js">
+
+
+  </script>
+</body>
+
+</html>

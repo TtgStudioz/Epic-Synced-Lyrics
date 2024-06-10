@@ -1,0 +1,385 @@
+/* html {
+  height: 100%;
+  width: 100%;
+} */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #162130;
+  color: #DDE6ED;
+  margin: 0;
+}
+
+.searchInput {
+  background-color: #9DB2BF;
+  border-radius: 5px;
+  margin: 10px;
+  height: 40px;
+  width: 77%;
+  font-size: 20px;
+  border: none;
+  padding: 5px;
+}
+
+#ultra-contT {
+  float: left;
+  margin: 0;
+  width: 100%;
+}
+
+#containerT {
+  display: flex;
+  justify-content: center;
+  /* margin: 60px; */
+  width: auto;
+  background-color: #516e82a6;
+  /* border-radius: 10px; */
+  /* padding: 5px; */
+}
+
+#searchContainerT {
+  width: 30%;
+  height: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+}
+
+.searchContainer {
+  position: relative;
+  width: 300px;
+  display: flex;
+  justify-content: right;
+}
+
+.resultsContainer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #516e82a6;
+  z-index: 1000;
+  display: none;
+  padding: 20px;
+  backdrop-filter: blur(15px);
+}
+
+.songSearch {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+
+
+.songSearch img {
+  margin-right: 10px;
+}
+
+.imageSearch {
+  width: 64px;
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+.thumbnail {
+  width: 73px;
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+.textContainer h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.textContainer p {
+  margin: 0;
+  font-size: 14px;
+  color: #bfbfbf;
+}
+
+.individualLyric {
+  cursor: pointer;
+}
+
+#lyrics {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 50px;
+  scroll-behavior: smooth;
+
+}
+
+#lyrics-container {
+  height: 60vh;
+  /* Fixed height */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  border: 1px solid #d6d6d6;
+  padding: 20px;
+  font-size: 25px;
+  width: 27%;
+  float: right;
+  align-self: center;
+  margin: 50px;
+  margin-top: 30px;
+
+  border-radius: 10px;
+  margin-right: 7%;
+  font-weight: bold;
+  color: #7d7d7d;
+}
+
+#ultra-cont {
+  float: left;
+  margin: 0;
+  width: 50%;
+  padding: 30px;
+}
+
+.highlight {
+  color: blue;
+  /* Style for the currently highlighted lyric */
+}
+
+#container {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 40px;
+  width: auto;
+}
+
+#bruh {
+  display: none;
+  position: relative;
+}
+
+#bruh>p {
+  text-align: center;
+}
+
+#bruh>p>a {
+  color: inherit;
+}
+
+/* Styles for screens less than 900 pixels wide */
+@media (max-width : 900px) {
+  #ultra-cont {
+    display: flex;
+    /* Change display to flex */
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #lyrics-container {
+    width: 80%;
+    /* margin: 20px auto; /* Move the lyrics container to the bottom */
+
+  }
+}
+
+
+#player {
+  border-radius: 10px;
+}
+
+input {
+  background-color: #9DB2BF;
+  border-radius: 5px;
+  margin: 10px;
+  height: 40px;
+  width: 19%;
+  font-size: 20px;
+  border: none;
+  padding: 5px;
+  /* border-bottom: 50px; */
+}
+
+input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: #26292b;
+  opacity: 1;
+  font-size: 18px;
+  /* Firefox */
+}
+
+
+/* CSS */
+.button-31 {
+  background-color: #212d3d;
+  border-radius: 5px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  max-width: none;
+  min-height: 44px;
+  min-width: 10px;
+  outline: none;
+  overflow: hidden;
+  padding: 13px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  height: 100%;
+  align-self: center;
+  margin-left: 7px;
+  width: auto;
+}
+
+.button-31:hover {
+  opacity: .75;
+}
+
+
+.popup {
+  transition: .5s;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  backdrop-filter: blur(10px);
+  background-color: rgb(0 0 0 / 49%);
+  display: none;
+}
+
+.popup-content {
+  background-color: #466b8859;
+  margin: 10% auto;
+  padding: 20px;
+  border: 3px solid #888888;
+  width: 45%;
+  display: block;
+  border-radius: 10px;
+}
+
+.popup-content button {
+  display: block;
+  margin: 0 auto;
+  background-color: #FFF0;
+  border: none;
+  color: #fff;
+  margin-left: 95%;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: -20px;
+  font-size: 17px;
+}
+
+.show {
+  display: block;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.float {
+  transition: .3s;
+  position: fixed;
+  width: 20px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #3d5466;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  padding: 10px;
+  white-space: nowrap;
+  /* Prevents text wrapping to a new line */
+}
+
+.float:hover {
+  transition: .3s;
+  width: 150px;
+}
+
+.float::before {
+  content: "?";
+}
+
+.float:hover::before {
+  content: "How to use and credits";
+  font-size: 14px;
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+
+
+.accordion {
+  background-color: #3d5466;
+  color: #FFF;
+  cursor: pointer;
+  padding: 13.2px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active {
+  border-radius: 5px 5px 0 0;
+} 
+
+.accordion:hover {
+  opacity: .75;
+}
+
+.accordion:after {
+  content: '\002B';
+  color: #ededed;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: #3d5466;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  border-radius: 0 0 5px 5px;
+}
+
+.item {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.label {
+  font-size: 13px;
+  color: #e1e1e1;
+  margin: 10px 0 5px 0;
+}
+
+.containerInfo {
+  display: flex;
+  flex-wrap: wrap;
+}
