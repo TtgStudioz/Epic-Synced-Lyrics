@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- search heading -->
   <div id="ultra-contT">
     <div id="containerT">
       <div class="searchContainer">
@@ -14,22 +15,25 @@
       <h3> - or - </h3>
       <input id="songAndArtist" placeholder="Quick search" autocomplete="off"></input>
       <button id="searchButton" class="button-31">Search</button>
-
     </div>
   </div>
+  
   <a class="float" id="popup-button" , style="text-decoration: none;"></a>
 
-  <div id="lyrics-container">
-  </div>
+  <div id="lyrics-container"></div>
+   
+ 
 
   <div id="ultra-cont">
     <div id="container">
       <div id="player"></div>
     </div>
 
-    <button style="margin-bottom: 20px; margin-left:0px; background-color: #3d5466;" id="options-button"
-      class="button-31">Explore song's versions</button>
+    <button style="margin-bottom: 20px; margin-left:0px; background-color: #3d5466;" id="options-button" class="button-31">Explore song's versions</button>
     
+    <button style="margin-bottom: 20px; margin-left:15px; background-color: #3d5466;" id="lyrics-option" class="button-31">Explore lyrics versions</button>
+    
+    <!-- song info -->
     <button class="accordion">Song Info <p style="float: right; margin: 0;"></p></button>
     <div class="panel">
       <div style="border: none; cursor: default; padding: 0;" class="songSearch">
@@ -56,6 +60,7 @@
         </div>
       </div>
     </div>
+    
     <div id="bruh">
       <div id="container">
         <input id="artistName" placeholder="Artist Name"></input>
@@ -68,6 +73,7 @@
     </div>
     <!-- <div id="lyrics"></div> -->
   </div>
+  
   <div id="options-popup" class="popup">
     <div class="popup-content">
       <button style="margin-bottom: 10px" id="close-popup-two">X</button>
@@ -75,6 +81,13 @@
     </div>
   </div>
 
+  <div id="lyrics-options-popup" class="popup">
+    <div class="popup-content">
+      <button style="margin-bottom: 10px" id="close-popup-three">X</button>
+      <div style="height: 50vh; overflow-x: hidden;" id="lyrics-optionsContent"></div>
+    </div>
+  </div>
+  
   <div id="myPopup" class="popup">
     <div class="popup-content">
       <button id="close-popup">X</button>

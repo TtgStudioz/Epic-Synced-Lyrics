@@ -383,3 +383,11 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
 }
+
+.lyricsAndButton {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Align items horizontally in the center */
+  justify-content: center; /* Align items vertically in the center */
+  height: 100vh; /* Adjust as per your requirement */
+}
