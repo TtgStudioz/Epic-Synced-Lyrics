@@ -96,14 +96,16 @@ async function getLyricsWithOtherApi(artist, song, vid) {
 
     return finalLyrics;
   } catch (error) {
+
+    
+    // const url = await fetch(`https://idktesting.onrender.com/proxy?url=https://genius.com/${artist.replace(/ /g, "-")}-${song.replace(/ /g, "-")}-lyrics&className=Lyrics__Container-sc-1ynbvzw-1`);
+    // const plainLyric = await url.json();
+    
+    return [{ time: 0, text: "Lyrics are not available for this song" }];
     
     // console.error('Error fetching album info:', error);
   }
 }
-
-
-
-
 
 
 document.getElementById('songAndArtist').addEventListener("keyup", function(event) {
@@ -131,8 +133,8 @@ function createWelcomeDiv() {
   newDiv.appendChild(newContent);
   lyricsContainer.appendChild(newDiv);
 }
-function searchVideo(art, song) {
 
+function searchVideo(art, song) {
   var sArtist = art;
   var sSong = song;
   if (sArtist && sSong) {
@@ -221,6 +223,15 @@ function skipToTime(time) {
   player.seekTo(time);
 }
 
+
+async function getSimpleLyrics(artist, title) {
+  const url = await fetch(`https://api.lyrics.ovh/v1/${encodeURIComponent(artist)}/${encodeURIComponent(title)}`);
+
+  const lyrics = await url.json();
+
+  return lyric.lyrics;
+}
+
 let myPopup = document.getElementById('myPopup');
 document.getElementById('popup-button').onclick = function() {
   myPopup.classList.add("show");
@@ -245,14 +256,8 @@ document.getElementById('lyrics-option').onclick = function() {
 document.getElementById('close-popup-three').onclick = function() {
   lyricsoptionsPopup.classList.remove("show");
 }
-// function search(artist, song) {
-//   if (artist && song) {
-//     window.open(`${window.location.href}player.html?artist=${encodeURIComponent(artist)}&song=${encodeURIComponent(song)}`, "_blank").focus()
-//     // window.location.href = `player.html?artist=${encodeURIComponent(artist)}&song=${encodeURIComponent(song)}`;
-//   } else {
-//     window.alert("Add both name and artist.");
-//   }
-// }
+
+
 
 async function getAccessToken(clientId, clientSecret) {
   const response = await fetch('https://accounts.spotify.com/api/token', {
