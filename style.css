@@ -4,27 +4,106 @@
 } */
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+font-weight: 600;
+  /* font-family: Arial, Helvetica, sans-serif; */
   background-color: #162130;
   color: #DDE6ED;
   margin: 0;
 }
 
-.searchInput {
-  background-color: #9DB2BF;
-  border-radius: 5px;
-  margin: 10px;
-  height: 40px;
-  width: 77%;
-  font-size: 20px;
-  border: none;
-  padding: 5px;
+.mainContent {
+  max-width: 100vh;
+  box-sizing: border-box;
+  /* text-align: center; */
+  border-radius: 15px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
 }
 
-#ultra-contT {
-  float: left;
-  margin: 0;
+.mainContentPlayer {
+  /* max-width: 100vh; */
+  box-sizing: border-box;
+  /* text-align: center; */
+  border-radius: 15px;
+  /* margin: 20px auto; */
+  display: flex;
+  flex-direction: row;
+
+}
+@media only screen and (max-width: 900px) {
+  .mainContent {
+    width: 100%;
+  }
+
+  .mainContentPlayer {
+    /* max-width: 100vh; */
+    box-sizing: border-box;
+    /* text-align: center; */
+    border-radius: 15px;
+    /* margin: 20px auto; */
+    display: flex;
+    flex-direction: column;
+  }
+
+  #lyrics-container {
+    width: unset !important;
+    align-self: unset !important;
+    margin-right: unset !important;
+    margin: 30px !important;
+  }
+
+  #ultra-cont {
+    margin: 30px !important;
+  }
+  .popup-content {
+    width: 65% !important;
+    /* margin: 40% !important; */
+  }
+  .textContainer h2 {
+    font-size: 16px !important;
+  }
+  .textContainer p {
+    font-size: 14px !important;
+  }
+}
+.searchInput {
+  border: 0;
+  outline: 0;
+  color: rgb(60, 66, 87);
+  background-color: rgb(219 224 238);
+  border-radius: 5px;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 400;
+  padding: 4px 8px;
+  min-height: 28px;
+  vertical-align: middle;
+  transition: background-color .24s,box-shadow .24s;
+  transition-property: background-color, box-shadow;
+  transition-duration: 0.24s, 0.24s;
+  transition-timing-function: ease, ease;
+  transition-delay: 0s, 0s;
   width: 100%;
+}
+
+.searchInput:focus{
+  box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(58 151 212 / 36%) 0px 0px 10px 4px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px;
+}
+
+
+#ultra-contT {
+  /* margin: 0 auto; */
+  /* width: 80%; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px;
+  /* width: 100%; */
+  margin-bottom: 15px;
+  /* margin: 20px; */
+  /* justify-content: center; */
 }
 
 #containerT {
@@ -53,24 +132,24 @@ body {
 }
 
 .resultsContainer {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  max-height: 400px;
+  max-height: 500px;
   overflow-y: auto;
-  background-color: #516e82a6;
+  /* background-color: #516e82a6; */
   z-index: 1000;
   display: none;
-  padding: 20px;
+  margin-top: 20px;
+  margin: 10px;
   backdrop-filter: blur(15px);
+  /* width: 30%; */
+  /* margin: 0 auto; */
+  border-radius: 5px;
+  position: relative;
 }
-
 .songSearch {
   display: flex;
   align-items: center;
-  padding: 10px;
-  border: 1px solid #ddd;
+  /* padding: 10px;
+  border: 1px solid #ddd; */
   border-radius: 5px;
   margin-bottom: 20px;
   cursor: pointer;
@@ -83,7 +162,7 @@ body {
 }
 
 .imageSearch {
-  width: 64px;
+  width: 54px;
   margin-right: 15px;
   border-radius: 5px;
 }
@@ -96,12 +175,12 @@ body {
 
 .textContainer h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .textContainer p {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   color: #bfbfbf;
 }
 
@@ -130,7 +209,7 @@ body {
   align-self: center;
   margin: 50px;
   margin-top: 30px;
-
+  margin-left: auto;
   border-radius: 10px;
   margin-right: 7%;
   font-weight: bold;
@@ -139,9 +218,10 @@ body {
 
 #ultra-cont {
   float: left;
-  margin: 0;
-  width: 50%;
-  padding: 30px;
+  margin: 30px;
+  /* width: 100%; */
+  /* padding: 30px; */
+  margin-left: 7%;
 }
 
 .highlight {
@@ -170,10 +250,10 @@ body {
 }
 
 /* Styles for screens less than 900 pixels wide */
-@media (max-width : 900px) {
+/* @media (max-width : 900px) {
   #ultra-cont {
     display: flex;
-    /* Change display to flex */
+    Change display to flex
     flex-direction: column;
     width: 100%;
   }
@@ -183,14 +263,14 @@ body {
     /* margin: 20px auto; /* Move the lyrics container to the bottom */
 
   }
-}
+} */
 
 
 #player {
   border-radius: 10px;
 }
 
-input {
+/* input {
   background-color: #9DB2BF;
   border-radius: 5px;
   margin: 10px;
@@ -199,8 +279,8 @@ input {
   font-size: 20px;
   border: none;
   padding: 5px;
-  /* border-bottom: 50px; */
-}
+  border-bottom: 50px;
+} */
 
 input:focus {
   outline: none;
@@ -216,33 +296,22 @@ input:focus {
 
 /* CSS */
 .button-31 {
-  background-color: #212d3d;
-  border-radius: 5px;
-  border-style: none;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
+  transition: 0.24s;
+  background-color: #3d5466;
+  color: white;
+  padding: 10px;
   font-size: 16px;
-  font-weight: 700;
-  line-height: 1.5;
-  margin: 0;
-  max-width: none;
-  min-height: 44px;
-  min-width: 10px;
-  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  white-space: nowrap;
   overflow: hidden;
-  padding: 13px;
-  position: relative;
-  text-align: center;
-  text-transform: none;
-  height: 100%;
-  align-self: center;
-  margin-left: 7px;
-  width: auto;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 .button-31:hover {
+  transition: 0.24s;
   opacity: .75;
 }
 
@@ -264,7 +333,7 @@ input:focus {
   background-color: #466b8859;
   margin: 10% auto;
   padding: 20px;
-  border: 3px solid #888888;
+  border: 2px solid #888888;
   width: 45%;
   display: block;
   border-radius: 10px;
@@ -276,7 +345,7 @@ input:focus {
   background-color: #FFF0;
   border: none;
   color: #fff;
-  margin-left: 95%;
+  margin-left: 90%;
   cursor: pointer;
   font-weight: bold;
   margin-bottom: -20px;
@@ -327,14 +396,14 @@ a:hover {
   background-color: #3d5466;
   color: #FFF;
   cursor: pointer;
-  padding: 13.2px;
+  padding: 10px;
   width: 100%;
   border: none;
   border-radius: 5px;
   text-align: left;
   outline: none;
   font-size: 15px;
-  transition: 0.4s;
+  transition: 0.24s;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.5;
@@ -392,4 +461,9 @@ a:hover {
   align-items: center; /* Align items horizontally in the center */
   justify-content: center; /* Align items vertically in the center */
   height: 100vh; /* Adjust as per your requirement */
+}
+
+iframe {
+  width: 100%;
+  border-radius: 8px;
 }

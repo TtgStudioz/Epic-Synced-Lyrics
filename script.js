@@ -55,6 +55,22 @@ function onYouTubeIframeAPIReady() {
   });
 }
 
+function getQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    song: params.get('song'),
+    artist: params.get('artist'),
+    album: params.get('album'),
+    releaseDate: params.get('releaseDate'),
+    duration: params.get('duration'),
+    image: params.get('image'),
+    writers: params.get('writers')
+  };
+}
+
+// Fetch the song information from the URL
+const songData = getQueryParams();
+
 let syncedLyricsArray = []
 async function getLyricsWithOtherApi(artist, song, vid) {
   try {
@@ -65,7 +81,33 @@ async function getLyricsWithOtherApi(artist, song, vid) {
 
     const json = await lyricsResponse.json(); 
 
-    syncedLyricsArray = json.map(item => ({ name: item.name, album: item.albumName, artist: item.artistName, syncedLyrics: item.syncedLyrics }));
+    if (!json || !json[0] || !json[0].syncedLyrics) {
+      if (json && json[0] && json[0].plainLyrics) {
+        plain = ["No"]
+        plain = json[0].plainLyrics.split('\n');
+        console.log(plain)
+        // const lyricsContainer = document.getElementById("lyrics-container");
+        // plain.forEach(lyric => {
+        //   const newDiv = document.createElement("div");
+        //   newDiv.setAttribute("class", "individualLyric");
+        //   newDiv.style.margin = "5px 0px 5px";
+        //   const newContent = document.createTextNode(lyric);
+        //   newDiv.appendChild(newContent);
+        //   lyricsContainer.appendChild(newDiv);
+        // });
+        
+        return [{time: 0, text: plain}]
+      } else {
+        return [{time: 0, text: ["no", "yes"]}]
+      }
+    }
+
+    syncedLyricsArray = json.map(item => ({ 
+      name: item.name,
+      album: item.albumName,
+      artist: item.artistName,
+      syncedLyrics: item.syncedLyrics
+    }));
 
 
     let finalLyrics = [];
@@ -96,31 +138,27 @@ async function getLyricsWithOtherApi(artist, song, vid) {
 
     return finalLyrics;
   } catch (error) {
-
     
-    // const url = await fetch(`https://idktesting.onrender.com/proxy?url=https://genius.com/${artist.replace(/ /g, "-")}-${song.replace(/ /g, "-")}-lyrics&className=Lyrics__Container-sc-1ynbvzw-1`);
-    // const plainLyric = await url.json();
-    
-    return [{ time: 0, text: "Lyrics are not available for this song" }];
-    
-    // console.error('Error fetching album info:', error);
+    return [{ time: 0, text: ["Lyrics not available", "Sorry"] }];
   }
 }
 
 
-document.getElementById('songAndArtist').addEventListener("keyup", function(event) {
-  nameAndArtist = document.getElementById('songAndArtist').value.split(", ");
-  if (event.keyCode === 13) {
-    if (nameAndArtist[0] && nameAndArtist[1]) {
-      searchVideo(nameAndArtist[0], nameAndArtist[1])
-    } else {
-      window.alert("Add both name and artist.");
-    }
-  }
-})
+// document.getElementById('songAndArtist').addEventListener("keyup", function(event) {
+//   nameAndArtist = document.getElementById('songAndArtist').value.split(", ");
+//   if (event.keyCode === 13) {
+//     if (nameAndArtist[0] && nameAndArtist[1]) {
+//       searchVideo(nameAndArtist[0], nameAndArtist[1])
+//     } else {
+//       window.alert("Add both name and artist.");
+//     }
+//   }
+// })
 
 window.addEventListener("load", (event) => {
   createWelcomeDiv();
+  searchVideo(songData.artist, songData.song)
+  addSongInfo(songData.album, songData.releaseDate, songData.writers, songData.duration, songData.image)
 });
 
 function createWelcomeDiv() {
@@ -149,6 +187,9 @@ function searchVideo(art, song) {
           playVideo(videoId);
           // Fetch lyrics using the new API
           getLyricsWithOtherApi(sArtist, sSong, videoId).then(lyrics => {
+            if (lyrics.length != 1) {
+              
+            
 
             if (document.getElementById("welcome") !== null) {
               document.getElementById("welcome").remove()
@@ -175,7 +216,21 @@ function searchVideo(art, song) {
               document.getElementById("lyrics-container").scrollTo({ top: 0, behavior: 'smooth' });
             }
             createLyricsOptions(syncedLyricsArray);
+          } else {
+              const lyricsContainer = document.getElementById("lyrics-container");
+              lyricsContainer.innerHTML = "";  // Clear previous lyrics
 
+
+              plain.forEach(lyric => {
+                const newDiv = document.createElement("div");
+                newDiv.setAttribute("class", "individualLyric");
+                newDiv.style.margin = "5px 0px 5px";
+                const newContent = document.createTextNode(lyric);
+                newDiv.appendChild(newContent);
+                lyricsContainer.appendChild(newDiv);
+              });
+              //herererererrerere
+          }
           });
         } else {
           alert("No video found with the given search term.");
@@ -372,28 +427,28 @@ async function main(query) {
   }
 }
 
-document.getElementById("searchInput").addEventListener("input", function() {
-  const query = this.value.trim();
-  if (query) {
-    main(query);
-  } else {
-    document.getElementById("resultsContainer").style.display = 'none';
-  }
-});
-document.getElementById("searchInput").addEventListener("keydown", function(event) {
-  if (event.key === "Escape") {
-    document.getElementById("resultsContainer").style.display = 'none';
-  }
-});
+// document.getElementById("searchInput").addEventListener("input", function() {
+//   const query = this.value.trim();
+//   if (query) {
+//     main(query);
+//   } else {
+//     document.getElementById("resultsContainer").style.display = 'none';
+//   }
+// });
+// document.getElementById("searchInput").addEventListener("keydown", function(event) {
+//   if (event.key === "Escape") {
+//     document.getElementById("resultsContainer").style.display = 'none';
+//   }
+// });
 
-document.getElementById('searchButton').onclick = function() {
-  nameAndArtist = document.getElementById('songAndArtist').value.split(", ");
-  if (nameAndArtist[0] && nameAndArtist[1]) {
-    searchVideo(nameAndArtist[0], nameAndArtist[1])
-  } else {
-    window.alert("Add both name and artist.");
-  }
-}
+// document.getElementById('searchButton').onclick = function() {
+//   nameAndArtist = document.getElementById('songAndArtist').value.split(", ");
+//   if (nameAndArtist[0] && nameAndArtist[1]) {
+//     searchVideo(nameAndArtist[0], nameAndArtist[1])
+//   } else {
+//     window.alert("Add both name and artist.");
+//   }
+// }
 
 function createLyricsOptions(options) {
   const resultsContainer = document.getElementById('lyrics-optionsContent');
