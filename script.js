@@ -74,44 +74,49 @@ const songData = getQueryParams();
 let syncedLyricsArray = []
 async function getLyricsWithOtherApi(artist, song, vid) {
   try {
-   
+
     var query = artist.split(' ').join('+') + "+" + song.split(' ').join('+');
 
     const lyricsResponse = await fetch(`https://lrclib.net/api/search?q=${query}`);
+    let json = await lyricsResponse.json(); 
 
-    const json = await lyricsResponse.json(); 
-
-    if (!json || !json[0] || !json[0].syncedLyrics) {
-      if (json && json[0] && json[0].plainLyrics) {
-        plain = ["No"]
-        plain = json[0].plainLyrics.split('\n');
-        console.log(plain)
-        // const lyricsContainer = document.getElementById("lyrics-container");
-        // plain.forEach(lyric => {
-        //   const newDiv = document.createElement("div");
-        //   newDiv.setAttribute("class", "individualLyric");
-        //   newDiv.style.margin = "5px 0px 5px";
-        //   const newContent = document.createTextNode(lyric);
-        //   newDiv.appendChild(newContent);
-        //   lyricsContainer.appendChild(newDiv);
-        // });
-        
-        return [{time: 0, text: plain}]
-      } else {
-        return [{time: 0, text: ["no", "yes"]}]
+    // Loop through all the JSON objects and find the one with valid syncedLyrics
+    let foundSyncedLyrics = false;
+    for (let item of json) {
+      if (item.syncedLyrics && item.syncedLyrics !== null) {
+        json = item;  // Reassign json to the object with syncedLyrics
+        foundSyncedLyrics = true;
+        console.log(json);
+        break;  // Exit the loop once we find valid syncedLyrics
       }
     }
 
-    syncedLyricsArray = json.map(item => ({ 
-      name: item.name,
-      album: item.albumName,
-      artist: item.artistName,
-      syncedLyrics: item.syncedLyrics
-    }));
+    // Handle the case where there are no syncedLyrics
+    if (!foundSyncedLyrics) {
+      if (json[0] && json[0].plainLyrics) {
+        plain = ["No"]
 
+        plain = json[0].plainLyrics.split('\n');
+        console.log(plain);
+        console.log([{ time: 0, text: plain }])
+        return [{ time: 0, text: plain }];
+      } else {
+        return [{ time: 0, text: ["No synced lyrics or plain lyrics found"] }];
+      }
+    }
+
+    // Now the json contains the object with syncedLyrics, and the rest of the code can use it
+    syncedLyricsArray = json.syncedLyrics.split('\n').map((line) => {
+      return { 
+        name: json.name,
+        album: json.albumName,
+        artist: json.artistName,
+        syncedLyrics: line.trim()
+      };
+    });
 
     let finalLyrics = [];
-    let length = json[0].syncedLyrics.split('\n');
+    let length = json.syncedLyrics.split('\n');
     length.forEach(line => {
       const splittedLine = line.split(']');
       if (splittedLine.length == 2) {
@@ -125,20 +130,31 @@ async function getLyricsWithOtherApi(artist, song, vid) {
       }
     });
 
-    // Increase repeated times by one second
     finalLyrics.sort((a, b) => a.time - b.time);
-    for (let i = 1; i < finalLyrics.length; i++) {
+    let seenTimestamps = new Set();
+
+    for (let i = 0; i < finalLyrics.length; i++) {
       if (finalLyrics[i].text === "") {
         finalLyrics[i].text = "♬";
       }
-      if (finalLyrics[i].time === finalLyrics[i - 1].time) {
-        finalLyrics[i].time += 1;
+
+      // Keep the original timestamp with its decimal precision
+      let currentTime = finalLyrics[i].time;
+
+      // Ensure that timestamps do not repeat by checking against the seenTimestamps set
+      while (seenTimestamps.has(currentTime)) {
+        currentTime += 1;  // Increment by 1 full second if the timestamp already exists
       }
+
+      // Update the timestamp and mark it as seen
+      finalLyrics[i].time = currentTime;
+      seenTimestamps.add(currentTime);  // Add the new timestamp to the set
     }
 
+    console.log(finalLyrics);
     return finalLyrics;
   } catch (error) {
-    
+    console.error("Error fetching lyrics:", error);
     return [{ time: 0, text: ["Lyrics not available", "Sorry"] }];
   }
 }
@@ -159,6 +175,7 @@ window.addEventListener("load", (event) => {
   createWelcomeDiv();
   searchVideo(songData.artist, songData.song)
   addSongInfo(songData.album, songData.releaseDate, songData.writers, songData.duration, songData.image)
+  document.body.style.backgroundImage = `url(${songData.image})`;
 });
 
 function createWelcomeDiv() {
@@ -188,34 +205,31 @@ function searchVideo(art, song) {
           // Fetch lyrics using the new API
           getLyricsWithOtherApi(sArtist, sSong, videoId).then(lyrics => {
             if (lyrics.length != 1) {
-              
-            
-
-            if (document.getElementById("welcome") !== null) {
-              document.getElementById("welcome").remove()
-            }
-            lyricsAndTime = lyrics || [];
-
-            // Create lyric container
-            const lyricsContainer = document.getElementById("lyrics-container");
-            lyricsContainer.innerHTML = "";  // Clear previous lyrics
-            lyricsAndTime.forEach(lyric => {
-              const newDiv = document.createElement("div");
-              newDiv.setAttribute("id", lyric.time);
-              newDiv.setAttribute("class", "individualLyric");
-              newDiv.style.margin = "5px 0px 5px";
-              const newContent = document.createTextNode(lyric.text);
-              newDiv.appendChild(newContent);
-
-              newDiv.addEventListener("click", function(event) {
-                skipToTime(event.target.id);
+              if (document.getElementById("welcome") !== null) {
+                document.getElementById("welcome").remove()
+              }
+              lyricsAndTime = lyrics || [];
+  
+              // Create lyric container
+              const lyricsContainer = document.getElementById("lyrics-container");
+              lyricsContainer.innerHTML = "";  // Clear previous lyrics
+              lyricsAndTime.forEach(lyric => {
+                const newDiv = document.createElement("div");
+                newDiv.setAttribute("id", lyric.time);
+                newDiv.setAttribute("class", "individualLyric");
+                newDiv.style.margin = "5px 0px 5px";
+                const newContent = document.createTextNode(lyric.text);
+                newDiv.appendChild(newContent);
+  
+                newDiv.addEventListener("click", function(event) {
+                  skipToTime(event.target.id);
+                });
+                lyricsContainer.appendChild(newDiv);
               });
-              lyricsContainer.appendChild(newDiv);
-            });
-            if (lyricsAndTime.length >= 0) {
-              document.getElementById("lyrics-container").scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            createLyricsOptions(syncedLyricsArray);
+              if (lyricsAndTime.length >= 0) {
+                document.getElementById("lyrics-container").scrollTo({ top: 0, behavior: 'smooth' });
+              }
+              createLyricsOptions(syncedLyricsArray);
           } else {
               const lyricsContainer = document.getElementById("lyrics-container");
               lyricsContainer.innerHTML = "";  // Clear previous lyrics
@@ -225,6 +239,7 @@ function searchVideo(art, song) {
                 const newDiv = document.createElement("div");
                 newDiv.setAttribute("class", "individualLyric");
                 newDiv.style.margin = "5px 0px 5px";
+                newDiv.style.color = "rgb(235, 235, 235)";
                 const newContent = document.createTextNode(lyric);
                 newDiv.appendChild(newContent);
                 lyricsContainer.appendChild(newDiv);
@@ -528,12 +543,15 @@ function createLyricsOptions(options) {
 function createSongOptions(options) {
   const resultsContainer = document.getElementById('optionsContent');
   resultsContainer.innerHTML = '';// Make sure this container exists in your HTML
+
   options.forEach(video => {
+    
     const newDiv = document.createElement('div');
     newDiv.setAttribute('class', 'songSearch');
 
     const newImage = document.createElement('img');
-    newImage.src = video.snippet.thumbnails.default.url; // Corrected property access
+    let url = video.snippet.thumbnails.default.url
+    newImage.src = url //.replace("/default.jpg", "/maxresdefault.jpg"); // Corrected property access
     newImage.setAttribute('class', 'thumbnail');
 
     const textContainer = document.createElement('div');

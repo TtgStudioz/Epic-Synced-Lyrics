@@ -2,14 +2,28 @@
   height: 100%;
   width: 100%;
 } */
+:root {
+  --text: #eaf6f5;
+  --background: #040b0b;
+  --primary: #9cd3d3;
+  --secondary: #a1a9ff29;
+  /* --secondary: #313772; */
+  --accent: #765fb9;
 
+}
 body {
   font-family: 'Montserrat', sans-serif;
 font-weight: 600;
   /* font-family: Arial, Helvetica, sans-serif; */
-  background-color: #162130;
+  /* background-color: #162130; */
+  /* background-color: var(--background); */
+  background-color: #142330;
   color: #DDE6ED;
   margin: 0;
+  transition: background-image 0.7s, background-color 0.7s;
+  background-size: cover; /* Cover the entire div */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
 }
 
 .mainContent {
@@ -56,6 +70,7 @@ font-weight: 600;
 
   #ultra-cont {
     margin: 30px !important;
+    width: unset !important;
   }
   .popup-content {
     width: 65% !important;
@@ -67,12 +82,17 @@ font-weight: 600;
   .textContainer p {
     font-size: 14px !important;
   }
+
+  iframe {
+    height: 350px !important;
+  }
 }
 .searchInput {
   border: 0;
   outline: 0;
   color: rgb(60, 66, 87);
-  background-color: rgb(219 224 238);
+  background-color: #ced3e6;
+  /* background-color: rgb(219 224 238); */
   border-radius: 5px;
   font-size: 20px;
   line-height: 20px;
@@ -139,7 +159,7 @@ font-weight: 600;
   display: none;
   margin-top: 20px;
   margin: 10px;
-  backdrop-filter: blur(15px);
+  /* backdrop-filter: blur(15px); */
   /* width: 30%; */
   /* margin: 0 auto; */
   border-radius: 5px;
@@ -148,11 +168,11 @@ font-weight: 600;
 .songSearch {
   display: flex;
   align-items: center;
-  /* padding: 10px;
-  border: 1px solid #ddd; */
-  border-radius: 5px;
-  margin-bottom: 20px;
+  /* border-radius: 5px; */
+  margin-bottom: 15px;
   cursor: pointer;
+  padding-bottom: 15px;
+  border-bottom: var(--secondary) solid 2px;
 }
 
 
@@ -219,7 +239,7 @@ font-weight: 600;
 #ultra-cont {
   float: left;
   margin: 30px;
-  /* width: 100%; */
+  width: 40%;
   /* padding: 30px; */
   margin-left: 7%;
 }
@@ -234,6 +254,8 @@ font-weight: 600;
   justify-content: left;
   margin-bottom: 40px;
   width: auto;
+  height: 75%;
+
 }
 
 #bruh {
@@ -297,7 +319,8 @@ input:focus {
 /* CSS */
 .button-31 {
   transition: 0.24s;
-  background-color: #3d5466;
+  background-color: var(--secondary);
+  /* background-color: #3d5466; */
   color: white;
   padding: 10px;
   font-size: 16px;
@@ -330,7 +353,8 @@ input:focus {
 }
 
 .popup-content {
-  background-color: #466b8859;
+  background-color: var(--secondary);
+  /* background-color: #466b8859; */
   margin: 10% auto;
   padding: 20px;
   border: 2px solid #888888;
@@ -393,7 +417,8 @@ a:hover {
 
 
 .accordion {
-  background-color: #3d5466;
+  background-color: var(--secondary);
+  /* background-color: #3d5466; */
   color: #FFF;
   cursor: pointer;
   padding: 10px;
@@ -431,7 +456,8 @@ a:hover {
 
 .panel {
   padding: 0 18px;
-  background-color: #3d5466;
+  background-color: var(--secondary);
+  /* background-color: #3d5466; */
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
@@ -466,4 +492,17 @@ a:hover {
 iframe {
   width: 100%;
   border-radius: 8px;
+  height: 100%;
+}
+
+#blur {
+    position: fixed; /* Use fixed positioning to cover the entire viewport */
+    top: 0;          /* Align to the top of the viewport */
+    left: 0;         /* Align to the left of the viewport */
+    width: 100vw;    /* Set width to 100% of the viewport width */
+    height: 100vh;   /* Set height to 100% of the viewport height */
+    background: rgb(0 0 0 / 59%); /* Optional: Add a semi-transparent background color for the blur effect */
+    pointer-events: none; /* Prevent interaction with the blur container */
+    backdrop-filter: blur(60px); /* Apply a blur effect */
+    z-index: -1;    /* Send it to the background behind other elements */
 }

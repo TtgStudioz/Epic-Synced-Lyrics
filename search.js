@@ -90,9 +90,25 @@ async function main(query) {
 
       newDiv.appendChild(newImage);
       newDiv.appendChild(textContainer);
+
+      let hoverTimeout;
+      let transitionTime = 500; // Transition time in milliseconds (0.7s)
+
+      newDiv.addEventListener("mouseover", function () {
+          // Start a timeout to delay background change
+          hoverTimeout = setTimeout(function () {
+              document.body.style.backgroundImage = `url(${song.album.images[0].url})`;
+          }, transitionTime);
+      });
+
+      newDiv.addEventListener("mouseout", function () {
+          // If mouse leaves before the transition time, clear the timeout
+          clearTimeout(hoverTimeout);
+      });
+
       
       newDiv.addEventListener('click', async function(event) {
-        document.getElementById("resultsContainer").style.display = 'none';
+        // document.getElementById("resultsContainer").style.display = 'none';
 
         // Fetch song information
         const songInfo = await getSongInfo(song.name, song.artists[0].name, accessToken);
@@ -158,13 +174,14 @@ document.getElementById("searchInput").addEventListener("input", function() {
     main(query);
   } else {
     document.getElementById("resultsContainer").style.display = 'none';
+    document.body.style.backgroundImage = '';
   }
 });
-document.getElementById("searchInput").addEventListener("keydown", function(event) {
-  if (event.key === "Escape") {
-    document.getElementById("resultsContainer").style.display = 'none';
-  }
-});
+// document.getElementById("searchInput").addEventListener("keydown", function(event) {
+//   if (event.key === "Escape") {
+//     document.getElementById("resultsContainer").style.display = 'none';
+//   }
+// });
 
 async function getSongInfo(songName, artistName, accessToken) {
   const query = encodeURIComponent(`${songName} ${artistName}`);
@@ -190,7 +207,9 @@ async function getSongInfo(songName, artistName, accessToken) {
       releaseDate: albumData.release_date,
       producers: albumData.label, // Note: Producer info might not be available
       duration: track.duration_ms / 1000,
-      image: albumData.images[0].url
+      image: (albumData.images && albumData.images.length > 0) ? albumData.images[0].url : '' // Provide a fallback if no image is available
+
+      // image: albumData.images[0].url
     };
     return songInfo;
   } else {
@@ -259,3 +278,4 @@ async function findSongWriters(songTitle, artist) {
 //   document.getElementById("infoLength").innerHTML = `${length} seconds`;
 //   document.getElementById("infoImage").src = image;
 // }
+
