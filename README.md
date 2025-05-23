@@ -1,1 +1,1 @@
-# Epic-Sync-Lyrics
+# Epic Synced Lyrics
