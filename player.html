@@ -13,11 +13,16 @@
   <div id="blur"></div>
 
   <div id="pagecontainer">
-    <div id="player" style="width: 0; height: 0; overflow: hidden;"></div>
+    <div id="player" style="width: 0; height: 0; overflow: hidden; position: absolute;"></div>
 
     <div id="player-container">
       <!-- <div id="player"></div> -->
       <img id="albumCover">
+
+      <div id="songTitles">
+        <h3 id="songTitle"> Song</h3>
+        <p id="artistNameAndAlbum"> Artist — Album</p>
+      </div>
       <div id="player-controller">
         <span id="timeStamps"> <p>0:00</p> <input type="range" id="progressBar" value="0" min="0" max="100" step="0.1"><p>0:00</p></span>
         <button id="playPauseButton"><i class="fa-solid fa-play"></i></button>
