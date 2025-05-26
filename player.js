@@ -319,7 +319,7 @@ function searchVideo(art, song) {
               plain.forEach(lyric => {
                 const newDiv = document.createElement("div");
                 newDiv.setAttribute("class", "individualLyric");
-                newDiv.style.margin = "5px 0px 5px";
+                newDiv.style.margin = "35px 0px 35px";
                 newDiv.style.color = "rgb(235, 235, 235)";
                 const newContent = document.createTextNode(lyric);
                 newDiv.appendChild(newContent);
